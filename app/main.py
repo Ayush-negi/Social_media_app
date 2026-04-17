@@ -6,7 +6,11 @@ from fastapi import Body, FastAPI
 from pydantic import BaseModel
 import psycopg
 from psycopg.rows import dict_row
+from . import crud, models, schemas
+from .database import engine, get_db
 
+# Automatically create tables on application startup.
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -101,7 +105,4 @@ def update_post(id: int, post: Post):
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Post with id: {id} does not exist"
         )
-    post_dict = post.dict()
-    post_dict['id'] = id
-    my_posts[index] = post_dict
-    return {"data": post_dict}
+    return {"data": updated_post}
