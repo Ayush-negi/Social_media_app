@@ -4,7 +4,7 @@ import psycopg
 from psycopg.rows import dict_row
 from . import  models
 from .database import engine
-from .routers import post, user
+from .routers import post, user, auth
 
 
 
@@ -48,6 +48,7 @@ def find_index_post(id: int):
 # Include the router objects for user and post endpoints
 app.include_router(post.router)
 app.include_router(user.router)
+app.include_router(auth.router)
 
 
 @app.get("/")
