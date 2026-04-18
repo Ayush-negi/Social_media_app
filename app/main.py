@@ -1,10 +1,11 @@
 import time
 from fastapi import FastAPI
+
 import psycopg
 from psycopg.rows import dict_row
 from . import  models
 from .database import engine
-from .routers import post, user, auth
+from .routers import post, user, auth, oauth2
 
 
 
